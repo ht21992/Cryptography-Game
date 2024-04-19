@@ -86,6 +86,7 @@ while True:
                     if letter.rect.collidepoint(event.pos):
                         letter.click(True)
                         clicked_letter = letter
+
                     else:
                         letter.click(False)
 
@@ -96,6 +97,7 @@ while True:
                     clicked_letter.text_surface = font.render(event.unicode.lower(), True, (0,0,0))
                     clicked_letter.click(False)
                     clicked_letter = None
+
 
                 else:
                     screen.fill(RED)

@@ -25,6 +25,7 @@ class Letter(pygame.sprite.Sprite):
         self.update_time = pygame.time.get_ticks()
         self.text_surface = font.render(char, True, Color.BLACK)
         self.hint_surface = hint_font.render(hint, True, Color.BLACK)
+        self.cursor_surface = self.cursor_surface = cursor_font.render('', True, Color.GREEN)
         self.rect = self.text_surface.get_rect()
         self.rect.topleft = (x, y)
 
@@ -36,15 +37,15 @@ class Letter(pygame.sprite.Sprite):
         # blink_animation_cool_down = 500  #  blink animation cooldown
         # if pygame.time.get_ticks() - self.update_time > blink_animation_cool_down:
         #     self.update_time = pygame.time.get_ticks()
-        if self.clicked:
-            self.draw_cursor(screen)
+        self.draw_cursor(screen)
         self.update_char(screen)
 
     def draw_cursor(self,screen):
-        if self.clicked and self.char != "":
-            cursor_surface = cursor_font.render('|', True, Color.GREEN)
-            cursor_rect = cursor_surface.get_rect(center=(self.rect.centerx - 10, self.rect.centery))
-            screen.blit(cursor_surface, cursor_rect)
+        if self.clicked:
+            self.cursor_surface = cursor_font.render('|', True, Color.GREEN)
+            cursor_rect = self.cursor_surface.get_rect(center=(self.rect.centerx - 10, self.rect.centery))
+            screen.blit(self.cursor_surface, cursor_rect)
+            
 
     def update_char(self,screen):
         screen.blit(self.text_surface, (self.x, self.y))
